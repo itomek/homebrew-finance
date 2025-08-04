@@ -1,7 +1,9 @@
 class Finance < Formula
+  include Language::Python::Virtualenv
+
   desc "Historical financial analysis and planning tool"
   homepage "https://github.com/itomek/finance"
-  url "https://github.com/itomek/finance/releases/download/v0.1.0/finance-0.1.0.tar.gz"
+  url "https://github.com/itomek/finance/archive/refs/tags/v0.1.0.tar.gz"
   sha256 "placeholder_sha256_to_be_updated_after_release"
   license "MIT"
 

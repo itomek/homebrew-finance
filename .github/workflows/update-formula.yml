@@ -25,7 +25,7 @@ jobs:
           SHA256="${{ github.event.client_payload.sha256 || github.event.inputs.sha256 }}"
           
           # Update the formula file
-          sed -i "s|url \".*\"|url \"https://github.com/itomek/finance/releases/download/v${VERSION}/finance-${VERSION}.tar.gz\"|" Formula/finance.rb
+          sed -i "s|url \".*\"|url \"https://github.com/itomek/finance/archive/refs/tags/v${VERSION}.tar.gz\"|" Formula/finance.rb
           sed -i "s|sha256 \".*\"|sha256 \"${SHA256}\"|" Formula/finance.rb
 
       - name: Test formula
