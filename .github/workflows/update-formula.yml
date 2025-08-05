@@ -11,6 +11,9 @@ on:
       sha256:
         description: 'SHA256 of the release tarball'
         required: true
+      download_url:
+        description: 'Direct download URL for the release asset'
+        required: false
 
 jobs:
   update-formula:
@@ -26,9 +29,17 @@ jobs:
         run: |
           VERSION="${{ github.event.client_payload.version || github.event.inputs.version }}"
           SHA256="${{ github.event.client_payload.sha256 || github.event.inputs.sha256 }}"
+          DOWNLOAD_URL="${{ github.event.client_payload.download_url || github.event.inputs.download_url }}"
+          
+          # Use the provided download URL if available, otherwise construct the archive URL
+          if [ -n "$DOWNLOAD_URL" ]; then
+            URL="$DOWNLOAD_URL"
+          else
+            URL="https://github.com/itomek/finance/archive/refs/tags/v${VERSION}.tar.gz"
+          fi
           
           # Update the formula file
-          sed -i "s|url \".*\"|url \"https://github.com/itomek/finance/archive/refs/tags/v${VERSION}.tar.gz\"|" Formula/finance.rb
+          sed -i "s|url \".*\"|url \"${URL}\"|" Formula/finance.rb
           sed -i "s|sha256 \".*\"|sha256 \"${SHA256}\"|" Formula/finance.rb
 
       - name: Create Pull Request
@@ -41,5 +52,6 @@ jobs:
             Updates the finance formula to version ${{ github.event.client_payload.version || github.event.inputs.version }}.
             
             SHA256: ${{ github.event.client_payload.sha256 || github.event.inputs.sha256 }}
+            Download URL: ${{ github.event.client_payload.download_url || github.event.inputs.download_url || 'Archive URL' }}
           branch: update-formula-${{ github.event.client_payload.version || github.event.inputs.version }}
           delete-branch: true
