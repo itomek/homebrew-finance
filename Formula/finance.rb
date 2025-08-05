@@ -3,8 +3,8 @@ class Finance < Formula
 
   desc "Historical financial analysis and planning tool"
   homepage "https://github.com/itomek/finance"
-  url "https://github.com/itomek/finance/archive/refs/tags/v0.0.6.tar.gz"
-  sha256 "d1e5450c84b4b5ca3d2f2f1693cf1f4aded32e466885d62d359b804931792277"
+  url "https://github.com/itomek/finance/archive/refs/tags/v0.1.3.tar.gz"
+  sha256 "d23213f449d90f2751e9efa6556994b164f71957e010f957f45ad3704b46d30d"
   license "MIT"
 
   depends_on "python@3.11"
